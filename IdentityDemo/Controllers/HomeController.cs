@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using IdentityDEMO.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityDEMO.Controllers
@@ -12,7 +13,16 @@ namespace IdentityDEMO.Controllers
         {
             _logger = logger;
         }
-
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminDashboard()
+        {
+            return View();
+        }
+        [Authorize(Policy = "ITDepartmentOnly")]
+        public IActionResult ITDashboard()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             return View();
